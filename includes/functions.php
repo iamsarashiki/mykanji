@@ -36,20 +36,16 @@ function saveUser($username, $data) {
 }
 
 function isAdmin($username) {
-    // Sederhana: cek apakah username 'admin' atau bisa ditambahkan flag di users.txt
-    return $username === 'admin';
+    return $username === 'admin'; // atau cek flag
 }
 
-// Fungsi untuk update level dan rank berdasarkan penambahan exp
 function updateLevelExp($username, $expGain) {
     $users = getUsers();
     if (!isset($users[$username])) return false;
     $user = $users[$username];
     $user['exp'] += $expGain;
     $exp = $user['exp'];
-    // Level = floor(exp/100) + 1
     $user['level'] = floor($exp / 100) + 1;
-    // Rank
     if ($exp < 100) {
         $user['rank'] = 'Warrior';
         $user['stars'] = 0;
