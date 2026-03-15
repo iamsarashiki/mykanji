@@ -1,0 +1,14 @@
+:root {
+    --bg: #1e1e2f;
+    --text: #f0f0f0;
+    --nav-bg: #2c2c3a;
+    --card-bg: #2a2a3c;
+    --border: #444;
+}
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+.navbar {
+    background: var(--nav-bg);
+}
