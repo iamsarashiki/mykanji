@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Kanji N5-N4</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/light.css" id="theme-style">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">KanjiLearn</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="kanji.html">Kanji</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="quest.html">Quest</a>
+            <a href="leaderboard.html">Leaderboard</a>
+            <a href="news.html">Berita</a>
+            <a href="chat.html">Chat Global</a>
+            <a href="profile.html">Profil</a>
+            <?php if(isset($_SESSION['user']) && $_SESSION['user'] == 'admin'): ?>
+                <a href="admin/">Admin</a>
+            <?php endif; ?>
+        </div>
+        <div class="theme-switch">
+            <button onclick="toggleTheme()">🌓</button>
+        </div>
+        <div class="language-select">
+            <select onchange="changeLanguage(this.value)">
+                <option value="id">🇮🇩 Indonesia</option>
+                <option value="jp">🇯🇵 Jepang</option>
+                <option value="en">🇬🇧 Inggris</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- Parallax Hero -->
+    <section class="parallax" style="background-image: url('assets/images/hero-bg.jpg');">
+        <h1>Selamat Datang di Belajar Kanji</h1>
+        <p>Kuasai Kanji N5 dan N4 dengan cara menyenangkan!</p>
+    </section>
+
+    <!-- Sidebar Foto (10 foto terbaru) -->
+    <div class="main-content">
+        <aside class="sidebar">
+            <h3>Foto Pengguna</h3>
+            <div class="photo-grid">
+                <?php
+                $photos = glob('photo/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+                shuffle($photos);
+                $photos = array_slice($photos, 0, 10);
+                foreach ($photos as $photo) {
+                    echo "<img src='$photo' alt='user photo'>";
+                }
+                ?>
+            </div>
+        </aside>
+
+        <!-- Konten Utama -->
+        <main class="content">
+            <h2>Level Anda: <span id="user-level">Warrior</span></h2>
+            <p>Exp: <span id="user-exp">0</span></p>
+            <div class="progress-bar"><div style="width:0%"></div></div>
+            <!-- Info lainnya -->
+        </main>
+    </div>
+
+    <!-- Popup Hatsune Miku -->
+    <div id="popup-miku" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <img src="assets/images/miku.png" alt="Hatsune Miku">
+            <p>Halo! Ayo belajar kanji bersama! ✨</p>
+            <button onclick="closePopupToday()">Tutup Hari Ini</button>
+        </div>
+    </div>
+
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/language.js"></script>
+    <script src="assets/js/popup.js"></script>
+</body>
+</html>
