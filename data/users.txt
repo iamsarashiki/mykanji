@@ -1,1 +1,2 @@
-admin|$2y$10$abcdefghijklmnopqrstuv|127.0.0.1|ID|100|5000|Mythical Glory|2500|admin.jpg|cover.jpg
+admin|$2y$10$abcdefghijklmnopqrstuvwxyzABCDEFGHIJK|127.0.0.1|ID|100|5000|Mythical Glory|2500|admin.jpg|cover.jpg
+test|$2y$10$dummyhashdummyhashdummyhashdummyhash|192.168.1.1|JP|5|250|Elite|0|default.jpg|default_cover.jpg
