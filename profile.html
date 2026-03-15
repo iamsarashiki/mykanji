@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profil</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <?php include 'includes/nav.php'; ?>
+    <div class="profile">
+        <img src="photo/<?php echo $_SESSION['user']; ?>.jpg" id="profile-pic" width="150">
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" name="photo" accept="image/*">
+            <button type="submit">Upload Foto Profil</button>
+        </form>
+        <form id="upload-cover" enctype="multipart/form-data">
+            <input type="file" name="cover" accept="image/*">
+            <button type="submit">Upload Sampul</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const res = await fetch('api/upload_profile.php', { method: 'POST', body: formData });
+            const data = await res.text();
+            if (data === 'ok') location.reload();
+        });
+    </script>
+</body>
+</html>
