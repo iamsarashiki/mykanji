@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Belajar Kanji</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            max-width: 800px;
+        }
+        .character {
+            flex: 1;
+            text-align: center;
+        }
+        .character img {
+            max-width: 200px;
+        }
+        .form {
+            flex: 1;
+            padding-left: 30px;
+        }
+        .form h2 {
+            margin-bottom: 20px;
+        }
+        .flag-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .flag-selector img {
+            width: 30px;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+        .flag-selector img.selected {
+            opacity: 1;
+            border: 2px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="character">
+                <img src="assets/images/anime-girl.png" alt="Anime Character">
+                <p>Hai! Ayo login! ฅ^•ﻌ•^ฅ</p>
+            </div>
+            <div class="form">
+                <h2>Login</h2>
+                <div class="flag-selector" id="flag-selector">
+                    <!-- Bendera akan diisi JS berdasarkan IP -->
+                </div>
+                <form id="loginForm">
+                    <input type="text" id="username" placeholder="Username" required><br>
+                    <input type="password" id="password" placeholder="Password" required><br>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Belum punya akun? <a href="register.html">Daftar</a></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Deteksi bendera berdasarkan IP (gunakan API atau simulasi)
+        fetch('https://ipapi.co/json/')
+            .then(res => res.json())
+            .then(data => {
+                const countryCode = data.country_code || 'ID';
+                const flagContainer = document.getElementById('flag-selector');
+                flagContainer.innerHTML = `<img src="https://flagcdn.com/${countryCode.toLowerCase()}.svg" class="selected" title="${data.country_name}">`;
+            })
+            .catch(() => {
+                // fallback
+                document.getElementById('flag-selector').innerHTML = '<img src="https://flagcdn.com/id.svg" class="selected" title="Indonesia">';
+            });
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            formData.append('action', 'login');
+            const res = await fetch('api/login.php', { method: 'POST', body: formData });
+            const text = await res.text();
+            if (text === 'success') {
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Login gagal: ' + text);
+            }
+        });
+    </script>
+</body>
+</html>
